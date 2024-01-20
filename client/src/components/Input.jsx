@@ -1,0 +1,13 @@
+import React from "react";
+
+export default function Input({ title }) {
+  return (
+    <>
+      <div className="w-full ml-10">{title}</div>
+      <input
+        className="w-[367px] h-[34px] rounded-[50px] border-[#656ED3] border-[1px] m-2 outline-none p-4"
+        type="text"
+      />
+    </>
+  );
+}

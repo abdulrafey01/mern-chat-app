@@ -6,14 +6,16 @@ const chatSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-  chatwith: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
+  chatwith: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
   type: {
     type: String,
     enum: ["direct", "group"],
+    default: "direct",
   },
   groupname: {
     type: String,

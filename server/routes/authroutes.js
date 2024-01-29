@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { signup, login } = require("../controllers/authcontrollers");
+const { signup, login, fetchAll } = require("../controllers/authcontrollers");
 const {
   signupValidator,
   loginValidator,
@@ -12,6 +12,8 @@ const router = Router();
 
 router.post("/signup", signupValidator, runValidation, signup);
 
-router.post("/login", loginValidator, runValidation, requireLogIn, login);
+router.post("/login", loginValidator, runValidation, login);
+
+router.get("/users", fetchAll);
 
 module.exports = router;

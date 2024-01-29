@@ -54,9 +54,24 @@ exports.login = async (req, res) => {
       expiresIn: "1m",
     });
 
+    const { _id, username, email: useremail } = user;
     res.status(200).json({
       authToken,
+      user: {
+        _id,
+        username,
+        useremail,
+      },
     });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.fetchAll = async (req, res) => {
+  try {
+    const users = await User.find().select("_id username email");
+    res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

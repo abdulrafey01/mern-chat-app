@@ -1,8 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PcLogo from "../assets/registercomputer.svg?react";
 import Input from "../components/Input";
 import Icons from "../assets/socialmediaicons.svg?react";
+
+import { useSelector, useDispatch } from "react-redux";
+import { signup } from "../features/authActions";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 export default function Register() {
+  const { registerMessage, error } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const handleSignup = () => {
+    if (password !== confirmPassword) {
+      return toast.error("Password does not match");
+    }
+    dispatch(signup({ username: firstName + lastName, email, password }));
+  };
+
+  useEffect(() => {
+    if (registerMessage) {
+      toast.success(registerMessage);
+      navigate("/login");
+    }
+    if (error) {
+      toast.error(error);
+    }
+  }, [registerMessage, error]);
   return (
     <div className="flex flex-row bg-[#EBEFFF] h-screen justify-center items-center ">
       <div className=" h-full flex-1 flex ">
@@ -16,15 +47,46 @@ export default function Register() {
             Please Fill out form to Register!
           </div>
           <div className="flex flex-col items-center w-full m-3">
-            <Input title="Full name" />
-            <Input title="Username" />
-            <Input title="Email" />
-            <Input title="Password" />
-            <Input title="Confirm Password" />
-            <button className="w-[365px] m-2 h-[34px] rounded-[50px] bg-[#656ED3] text-white hover:bg-[#2d2660]">
+            <Input
+              title="First name"
+              onChange={(e) => setFirstName(e.target.value)}
+              value={firstName}
+            />
+            <Input
+              title="Last Name"
+              onChange={(e) => setLastName(e.target.value)}
+              value={lastName}
+            />
+            <Input
+              title="Email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              type="email"
+            />
+            <Input
+              title="Password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              type="password"
+            />
+            <Input
+              title="Confirm Password"
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              value={confirmPassword}
+              type="password"
+            />
+            <button
+              onClick={handleSignup}
+              className="w-[365px] m-2 h-[34px] rounded-[50px] bg-[#656ED3] text-white hover:bg-[#2d2660]"
+            >
               Register
             </button>
-            <div className="m-2">Yes i have an account? Login </div>
+            <div
+              onClick={() => navigate("/login")}
+              className="m-2 cursor-pointer"
+            >
+              Yes i have an account? Login{" "}
+            </div>
             <Icons />
           </div>
         </div>

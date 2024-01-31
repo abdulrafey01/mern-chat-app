@@ -120,7 +120,7 @@ export default function LeftPanel() {
       <div className="relative shadow-xl shadow-black flex flex-col items-center py-4 w-[114px] h-[520px] bg-gradient-to-b from-rgba1 to-rgba2 rounded-[20px]">
         <div className="w-12 h-12 my-4 rounded-full overflow-hidden">
           <img
-            src={Avatar}
+            src={user.avatar}
             alt="Avatar"
             className="w-full h-full object-cover"
           />

@@ -35,16 +35,16 @@ exports.fetchAll = async (req, res) => {
     const chats = await Chat.find({
       $or: [{ chatof: id }, { chatwith: id }],
     })
-      .populate("chatof", "_id username email")
-      .populate("chatwith", "_id username email")
+      .populate("chatof", "_id username email avatar")
+      .populate("chatwith", "_id username email avatar")
       .populate({
         path: "messages",
         populate: [
-          { path: "from", model: "User", select: "_id username email" },
+          { path: "from", model: "User", select: "_id username email avatar" },
           {
             path: "to",
             model: "User" && "Chat",
-            select: "_id username email" && "groupname",
+            select: "_id username email avatar" && "groupname",
           },
         ],
       });

@@ -30,7 +30,7 @@ export default function ChatBubble({
   };
 
   const [groupName, setGroupName] = useState("");
-
+  const [file, setFile] = useState("");
   return (
     <div className="w-[356px] h-[247px]  shadow-xl shadow-black  p-4 bg-gradient-to-tr from-rgba1 to-rgba3 rounded-[20px]">
       <div
@@ -43,14 +43,22 @@ export default function ChatBubble({
         {title}
         {type === "group" && (
           <>
-            <div>
+            <div className="flex flex-row justify-center items-center">
               <input
                 onChange={(e) => setGroupName(e.target.value)}
-                className="h-6 w-32 p-2  outline-none rounded-md  text-[10px] text-black font-thin"
+                className="h-6 w-15 p-2  outline-none rounded-md  text-[10px] text-black font-thin"
                 placeholder="Group Name"
                 type="text"
                 value={groupName}
               />
+              {/* <input
+                onChange={(e) => setGroupName(e.target.value)}
+                className="h-6 w-1/2 ml-2
+                  outline-none rounded-md  text-[10px] text-black font-thin"
+                placeholder="Group Name"
+                type="file"
+                value={groupName}
+              /> */}
             </div>
             <div>
               <button

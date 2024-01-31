@@ -13,6 +13,9 @@ const authSlice = createSlice({
     registerMessage: null,
   },
   reducers: {
+    resetError: (state) => {
+      state.error = null;
+    },
     logout: (state, action) => {
       removeCookie("token");
       removeLocalStorage("user");
@@ -34,7 +37,7 @@ const authSlice = createSlice({
 
     // signup failure
     builder.addCase(signup.rejected, (state, action) => {
-      state.error = action.payload.error;
+      state.error = action.payload;
       state.user = null;
       state.token = null;
       state.registerMessage = null;
@@ -58,5 +61,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout } = authSlice.actions;
+export const { logout, resetError } = authSlice.actions;
 export default authSlice.reducer;

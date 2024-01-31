@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { signup } from "../features/authActions";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { resetError } from "../features/authSlice";
 export default function Register() {
   const { registerMessage, error } = useSelector((state) => state.auth);
 
@@ -18,13 +19,26 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [file, setFile] = useState("");
   const handleSignup = () => {
     if (password !== confirmPassword) {
       return toast.error("Password does not match");
     }
-    dispatch(signup({ username: firstName + lastName, email, password }));
+    if (!firstName || !lastName || !email || !password) {
+      return toast.error("All fields are required");
+    }
+
+    const formData = new FormData();
+    formData.append("username", firstName + " " + lastName);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("image", file);
+    dispatch(signup(formData));
   };
 
+  useEffect(() => {
+    console.log(file);
+  }, [file]);
   useEffect(() => {
     if (registerMessage) {
       toast.success(registerMessage);
@@ -32,6 +46,7 @@ export default function Register() {
     }
     if (error) {
       toast.error(error);
+      dispatch(resetError());
     }
   }, [registerMessage, error]);
   return (
@@ -74,6 +89,12 @@ export default function Register() {
               onChange={(e) => setConfirmPassword(e.target.value)}
               value={confirmPassword}
               type="password"
+            />
+            <div className="w-full ml-10">Choose Your Avatar</div>
+            <input
+              className=" m-2 outline-none"
+              type="file"
+              onChange={(e) => setFile(e.target.files[0])}
             />
             <button
               onClick={handleSignup}

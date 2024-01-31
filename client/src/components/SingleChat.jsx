@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import Avatar from "../assets/avatar.png";
+import Avatar from "../assets/groupicon.png";
 import BasketIcon from "../assets/basketicon.svg?react";
 import { useDispatch, useSelector } from "react-redux";
 import { resetMessageState, showMessages } from "../features/messageSlice";
@@ -20,7 +20,17 @@ export default function SingleChat({ chat }) {
   return (
     <div className="relative w-full  flex flex-row space-x-2 items-center ">
       <div className="w-12 h-12  rounded-full overflow-hidden">
-        <img src={Avatar} alt="Avatar" className="w-full h-full object-cover" />
+        <img
+          src={
+            chat.type === "direct"
+              ? user._id === chat.chatof._id //to show the name of other person not of the logged in user
+                ? chat.chatwith[0].avatar
+                : chat.chatof.avatar
+              : Avatar
+          }
+          alt="Avatar"
+          className="w-full h-full object-cover"
+        />
       </div>
       <div
         onClick={() => {

@@ -15,7 +15,7 @@ export default function RightPanel() {
 
   useEffect(() => {
     // filtering so that updated messages come not from db
-    setMessages(chatMessages.filter((m) => m.chatId === currentChat._id));
+    setMessages(chatMessages.filter((m) => m.chatId === currentChat?._id));
     console.log(chatMessages);
   }, [chatMessages]);
 
@@ -49,6 +49,7 @@ export default function RightPanel() {
         <ChatNav
           name={currentChatWith.username}
           email={currentChatWith.email}
+          avatar={currentChatWith.avatar}
           setMessages={setMessages}
         />
         <AllMessages messages={messages} />

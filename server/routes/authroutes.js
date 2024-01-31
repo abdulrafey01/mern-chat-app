@@ -7,10 +7,17 @@ const {
 const { runValidation } = require("../validators/index");
 
 const { requireLogIn } = require("../middlewares/authmiddleware");
+const { upload } = require("../middlewares/multermiddleware");
 
 const router = Router();
 
-router.post("/signup", signupValidator, runValidation, signup);
+router.post(
+  "/signup",
+  // signupValidator,
+  // runValidation,
+  upload.single("image"),
+  signup
+);
 
 router.post("/login", loginValidator, runValidation, login);
 

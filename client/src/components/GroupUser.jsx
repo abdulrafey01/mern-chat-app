@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import Avatar from "../assets/avatar.png";
+import Avatar from "../assets/groupicon.png";
 import { createChat } from "../features/createChatActions";
 import { useDispatch, useSelector } from "react-redux";
 import { addMember, removeMember } from "../features/createChatSlice";

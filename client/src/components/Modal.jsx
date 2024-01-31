@@ -54,7 +54,7 @@ export default function Modal() {
           )
         : allUsers
     );
-  }, [allUsers && directChats]);
+  }, [allUsers, directChats]);
 
   return (
     <div

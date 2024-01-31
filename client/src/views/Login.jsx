@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { login } from "../features/authActions";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { resetError } from "../features/authSlice";
 export default function Login() {
   const { user, error } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ export default function Login() {
     }
     if (error) {
       toast.error(error);
+      dispatch(resetError());
     }
   }, [user, error]);
   return (
@@ -39,6 +41,7 @@ export default function Login() {
             value={email}
           />
           <Input
+            type="password"
             title="Password"
             onChange={(e) => setPassword(e.target.value)}
             value={password}

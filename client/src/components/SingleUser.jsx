@@ -5,6 +5,7 @@ import { createChat } from "../features/createChatActions";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../features/modalSlice";
 import { toast } from "react-toastify";
+import { socket } from "../helpers/socket";
 export default function SingleUser({ user: otherUser }) {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
@@ -19,6 +20,8 @@ export default function SingleUser({ user: otherUser }) {
             type: "direct",
           })
         );
+        //inform other user
+        socket.emit("chat_status_change");
       }}
       className="w-full cursor-pointer  flex flex-row space-x-2 items-center "
     >

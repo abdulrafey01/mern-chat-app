@@ -52,7 +52,7 @@ export default function Modal() {
                   chat.chatwith.some((u) => u._id === singleUser._id)
               )
           )
-        : allUsers
+        : allUsers.filter((singleUser) => singleUser._id !== user._id)
     );
   }, [allUsers, directChats]);
 

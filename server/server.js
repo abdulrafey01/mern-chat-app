@@ -65,6 +65,11 @@ io.on("connection", (socket) => {
 
     // io.to(socket.room).emit("receive_message", data);
   });
+
+  // Eithere chat created or deleted
+  socket.on("chat_status_change", () => {
+    socket.broadcast.emit("chat_status_message");
+  });
   socket.on("disconnect", () => {
     console.log("user disconnected");
   });

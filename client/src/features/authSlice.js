@@ -24,6 +24,10 @@ const authSlice = createSlice({
       state.error = null;
       state.registerMessage = null;
     },
+
+    resetRegisterMessage: (state) => {
+      state.registerMessage = null;
+    },
   },
   extraReducers: (builder) => {
     // signup success
@@ -53,7 +57,7 @@ const authSlice = createSlice({
 
     // login failure
     builder.addCase(login.rejected, (state, action) => {
-      state.error = action.payload.error;
+      state.error = action.payload;
       state.user = null;
       state.token = null;
       state.registerMessage = null;
@@ -61,5 +65,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout, resetError } = authSlice.actions;
+export const { logout, resetError, resetRegisterMessage } = authSlice.actions;
 export default authSlice.reducer;

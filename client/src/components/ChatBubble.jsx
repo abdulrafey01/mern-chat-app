@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import SingleChat from "./SingleChat";
 import SingleUser from "./SingleUser";
 import GroupUser from "./GroupUser";
+import { socket } from "../helpers/socket";
 
 import { createChat } from "../features/createChatActions";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,6 +27,8 @@ export default function ChatBubble({
         groupname: groupName,
       })
     );
+    //inform other user
+    socket.emit("chat_status_change");
     setGroupName("");
   };
 

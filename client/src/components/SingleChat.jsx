@@ -82,6 +82,8 @@ export default function SingleChat({ chat }) {
         onClick={() => {
           dispatch(deleteChat(chat._id));
           dispatch(resetMessageState());
+
+          socket.emit("chat_status_change");
         }}
       >
         <BasketIcon className="w-6 h-6 absolute right-2  top-3 cursor-pointer" />

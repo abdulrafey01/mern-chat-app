@@ -7,9 +7,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { signup } from "../features/authActions";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { resetError } from "../features/authSlice";
+import { resetError, resetRegisterMessage } from "../features/authSlice";
 export default function Register() {
-  const { registerMessage, error } = useSelector((state) => state.auth);
+  const { registerMessage, error, user } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -37,11 +37,23 @@ export default function Register() {
   };
 
   useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+    // if (error) {
+    //   toast.error(error);
+    //   dispatch(resetError());
+    // }
+  }, [user, error]);
+
+  useEffect(() => {
     console.log(file);
   }, [file]);
+
   useEffect(() => {
     if (registerMessage) {
       toast.success(registerMessage);
+      dispatch(resetRegisterMessage());
       navigate("/login");
     }
     if (error) {
@@ -51,13 +63,13 @@ export default function Register() {
   }, [registerMessage, error]);
   return (
     <div className="flex flex-row bg-[#EBEFFF] h-screen justify-center items-center ">
-      <div className=" h-full flex-1 flex ">
+      <div className=" h-full max-lg:hidden flex-1 flex ">
         <PcLogo className="absolute z-20 w-[436px] h-[392px] left-[163px] top-[170px]" />
         <div className="z-10  w-[535px] h-[277px] bg-[#AFB3FF] rounded-[105px] rotate-90"></div>
         <div className="absolute w-[520px] h-[275px] bg-[#656ED3] rotate-[-97.17deg] rounded-[105px]"></div>
       </div>
       <div className="h-full flex-1 flex justify-center items-center">
-        <div className="0  flex items-center flex-col">
+        <div className="max-sm:w-[90%]  flex items-center flex-col">
           <div className="font-bold font-sans">
             Please Fill out form to Register!
           </div>
@@ -106,7 +118,8 @@ export default function Register() {
               onClick={() => navigate("/login")}
               className="m-2 cursor-pointer"
             >
-              Yes i have an account? Login{" "}
+              Yes i have an account?{" "}
+              <span className="hover:text-[#656ED3]"> Login </span>
             </div>
             <Icons />
           </div>

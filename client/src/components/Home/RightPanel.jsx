@@ -37,9 +37,14 @@ export default function RightPanel() {
 
     socket.on("receive_message", receiveMessageHandler);
 
+    socket.on("chat_status_message", () => {
+      window.location.reload();
+    });
+
     // Cleanup function to remove the event listener when the component unmounts
     return () => {
       socket.off("receive_message", receiveMessageHandler);
+      socket.off("chat_status_message");
     };
   }, [currentChat]);
 
